@@ -18,6 +18,7 @@ def printGradleInfoInRoot(){
     println "gradleHomeDir:" + gradle.gradleHomeDir
     println "gradleUserHomeDir:" + gradle.gradleUserHomeDir
     println "parent:" + gradle.parent
+    println "COMPILE_SDK_VERSION:" + COMPILE_SDK_VERSION
 }
 
 printGradleInfoInRoot()

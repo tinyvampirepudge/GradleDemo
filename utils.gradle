@@ -1,0 +1,8 @@
+/*
+  utils.gradle 是我封装的一个 gradle 脚本，里边定义了一些方便函数，
+ 比如读取 AndroidManifest.xml 中 的 versionName，或者是 copy jar 包/APK 包到指定的目录
+
+    别的gradle如何使用它呢：
+    apply from: rootProject.getRootDir().getAbsolutePath() + "/utils.gradle"
+ */
+
