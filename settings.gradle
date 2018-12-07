@@ -1,0 +1,26 @@
+// settings.gradle 除了可以 include 外，还可以设置一些函数。
+// 这些函数会在 gradle 构建整个工程任务的时候执行，所以，可以在 settings 做一些初始化的工作。
+
+//比如创建特定的目录，设置特定的参数等
+def initRootGradleEnvironment(){
+    println "initialize Root Gradle Environment ....."
+
+    //干一些 special 的私活....
+
+    println "initialize Root Gradle Environment completes..."
+}
+//settings.gradle 加载的时候，会执行 initMinshengGradleEnvironment
+initRootGradleEnvironment()
+
+// 输出Gradle对象的一些信息
+def printGradleInfoInRoot(){
+    println "In Root, settings.gradle id is " + gradle.hashCode()
+    println "gradleHomeDir:" + gradle.gradleHomeDir
+    println "gradleUserHomeDir:" + gradle.gradleUserHomeDir
+    println "parent:" + gradle.parent
+}
+
+printGradleInfoInRoot()
+
+//通过 include 函数，将子 Project 的名字(其文件夹名)包含进来
+include ':app', ':mylibrary', ':myotherlibrary'
