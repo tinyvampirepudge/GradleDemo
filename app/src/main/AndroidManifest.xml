@@ -11,6 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="TINY_TONGTONG"
+            android:value="wangdandan"/>
+
+        <meta-data
+            android:name="TINY_TONGTONG1"
+            android:value="wangdandan1"/>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

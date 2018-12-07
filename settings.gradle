@@ -2,7 +2,7 @@
 // 这些函数会在 gradle 构建整个工程任务的时候执行，所以，可以在 settings 做一些初始化的工作。
 
 //比如创建特定的目录，设置特定的参数等
-def initRootGradleEnvironment(){
+def initRootGradleEnvironment() {
     println "initialize Root Gradle Environment ....."
 
     //干一些 special 的私活....
@@ -13,12 +13,14 @@ def initRootGradleEnvironment(){
 initRootGradleEnvironment()
 
 // 输出Gradle对象的一些信息
-def printGradleInfoInRoot(){
+def printGradleInfoInRoot() {
     println "In Root, settings.gradle id is " + gradle.hashCode()
     println "gradleHomeDir:" + gradle.gradleHomeDir
     println "gradleUserHomeDir:" + gradle.gradleUserHomeDir
     println "parent:" + gradle.parent
     println "COMPILE_SDK_VERSION:" + COMPILE_SDK_VERSION
+
+    gradle.ext.catName = "王蛋蛋"
 }
 
 printGradleInfoInRoot()

@@ -16,7 +16,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
-        debug{
+        debug {
             // Java代码调用
             buildConfigField "String", "defaultNickName", "\"${DEFAULT_NICK_NAME}\""
             buildConfigField "Integer", "defaultNumber", DEFAULT_NUMBER
@@ -57,6 +57,9 @@ def printGradleInfoInAppModule() {
     println "gradleHomeDir:" + gradle.gradleHomeDir
     println "gradleUserHomeDir:" + gradle.gradleUserHomeDir
     println "parent:" + gradle.parent
+    println "gradle.ext.catName:" + gradle.catName
+
+    println "rootProject.ext.TINY_TONGTONG_Value:" + rootProject.ext.TINY_TONGTONG_Value
 }
 
 printGradleInfoInAppModule()

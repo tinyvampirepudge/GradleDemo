@@ -1,8 +1,21 @@
-/*
-  utils.gradle 是我封装的一个 gradle 脚本，里边定义了一些方便函数，
- 比如读取 AndroidManifest.xml 中 的 versionName，或者是 copy jar 包/APK 包到指定的目录
+// utils.gradle 是我封装的一个 gradle 脚本，里边定义了一些方便函数，
+// 比如读取 AndroidManifest.xml 中 的 versionName，或者是 copy jar 包/APK 包到指定的目录
 
-    别的gradle如何使用它呢：
-    apply from: rootProject.getRootDir().getAbsolutePath() + "/utils.gradle"
- */
+// 别的gradle如何使用它呢：
+// apply from: rootProject.getRootDir().getAbsolutePath() + "/utils.gradle"
 
+// 从AndroidManifest中获取数据
+def getDataFromAndroidManifest() {
+    def androidManifest = new XmlSlurper().parse(rootProject.getRootDir().getAbsolutePath() + "/app/src/main/AndroidManifest.xml")
+    def TINY_TONGTONG_Value = androidManifest.application.'meta-data'[1]['@android:value']
+    println "TINY_TONGTONG:" + TINY_TONGTONG_Value
+
+    return TINY_TONGTONG_Value
+}
+
+//此段花括号中代码是闭包
+ext {
+    // 除了 ext.xxx=value 这种定义方法外，还可以使用 ext{}这种书写方法。
+    // ext{}不是 ext(Closure)对应的函数调用。但是 ext{}中的{}确实是闭包。
+    TINY_TONGTONG_Value = getDataFromAndroidManifest()
+}
