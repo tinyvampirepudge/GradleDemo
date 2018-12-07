@@ -15,6 +15,17 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug{
+            // Java代码调用
+            buildConfigField "String", "defaultNickName", "\"${DEFAULT_NICK_NAME}\""
+            buildConfigField "Integer", "defaultNumber", DEFAULT_NUMBER
+
+            // xml布局文件调用
+            resValue "string", "user_name", "${USER_NAME}"
+            resValue "dimen", "text_size", "${TEXT_SIZE}"
+            resValue "color", "text_color", "${TEXT_COLOR}"
+        }
     }
 }
 
@@ -34,14 +45,14 @@ task parseAndroidManifest() {
     println "application.allowBackup:" + androidManifest.application.@'android:allowBackup'
 }
 
-def doSomethingInAppModule(){
+def doSomethingInAppModule() {
     println('doSomethingInAppModule')
 }
 
 doSomethingInAppModule()
 
 // 输出Gradle对象的一些信息
-def printGradleInfoInAppModule(){
+def printGradleInfoInAppModule() {
     println "In App, gradle id is " + gradle.hashCode()
     println "gradleHomeDir:" + gradle.gradleHomeDir
     println "gradleUserHomeDir:" + gradle.gradleUserHomeDir
