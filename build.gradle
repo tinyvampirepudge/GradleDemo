@@ -1,11 +1,17 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+// 引入gradle类型的工具类
 apply from: 'utils.gradle'
+
+// api地址：https://docs.gradle.org/current/javadoc/org/gradle/api/Project.html#buildscript-groovy.lang.Closure-
 buildscript {
 
+    // api地址：https://docs.gradle.org/current/javadoc/org/gradle/api/initialization/dsl/ScriptHandler.html#repositories-groovy.lang.Closure-
     repositories {
         google()
         jcenter()
     }
+    // api地址：https://docs.gradle.org/current/javadoc/org/gradle/api/Project.html#dependencies-groovy.lang.Closure-
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
 
@@ -14,13 +20,16 @@ buildscript {
     }
 }
 
+// api地址：https://docs.gradle.org/current/javadoc/org/gradle/api/Project.html#allprojects-groovy.lang.Closure-
 allprojects {
+    // api地址：https://docs.gradle.org/current/javadoc/org/gradle/api/Project.html#repositories-groovy.lang.Closure-
     repositories {
         google()
         jcenter()
     }
 }
 
+// 定义一个名为clean的Task
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
