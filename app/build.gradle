@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application' // APK 编译必须加载这个插件
 
+def final String APK_TYPE = "type"
+def final String APK_CHANNEL = "channel"
+
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
     defaultConfig {
@@ -9,6 +12,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        flavorDimensions APK_TYPE,APK_CHANNEL
     }
 
     // 设置签名信息配置
@@ -29,19 +34,6 @@ android {
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            // Java代码调用
-            buildConfigField "String", "defaultNickName", "\"${DEFAULT_NICK_NAME}\""
-            buildConfigField "Integer", "defaultNumber", DEFAULT_NUMBER
-
-            // xml布局文件调用
-            resValue "string", "user_name", "${USER_NAME}"
-            resValue "dimen", "text_size", "${TEXT_SIZE}"
-            resValue "color", "text_color", "${TEXT_COLOR}"
-        }
 
         debug {
             // Java代码调用
@@ -53,6 +45,96 @@ android {
             resValue "dimen", "text_size", "${TEXT_SIZE}"
             resValue "color", "text_color", "${TEXT_COLOR}"
         }
+
+        release {
+            // Java代码调用
+            buildConfigField "String", "defaultNickName", "\"${DEFAULT_NICK_NAME}\""
+            buildConfigField "Integer", "defaultNumber", DEFAULT_NUMBER
+
+            // xml布局文件调用
+            resValue "string", "user_name", "${USER_NAME}"
+            resValue "dimen", "text_size", "${TEXT_SIZE}"
+            resValue "color", "text_color", "${TEXT_COLOR}"
+
+            minifyEnabled true
+            zipAlignEnabled true
+//            versionNameSuffix "_release"
+            // 移除无用的resource文件
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+
+            //打包好的文件进行输出，修改文件名称的操作在下面进行。
+//            applicationVariants.all { variant ->
+//                //这个修改输出的APK路径
+//                if (variant.buildType.name != "debug") {//防止AS无法安装debug包(apk)
+//                    variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/apk")
+//                }
+//                variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
+//                    //这个修改输出APK的文件名
+//                    apkData.outputFileName = "dxw_v${variant.productFlavors[0].versionName}_${variant.productFlavors[0].name}" +
+//                            "_${variant.productFlavors[1].name}_${getGitRevision()}.apk"
+//                }
+//            }
+        }
+    }
+
+    // 友盟多渠道打包
+    productFlavors {
+        full {
+            // Assigns this product flavor to the "mode" flavor dimension.
+            dimension APK_TYPE
+            versionCode 65
+            versionName "2.2.0"
+        }
+
+        mini {
+            dimension APK_TYPE
+            applicationId "com.tinytongtong.gradlemini"
+            versionCode 0
+            versionName "1.0.0"
+        }
+
+        wandoujia {
+            dimension APK_CHANNEL
+        }
+        _360 {
+            dimension APK_CHANNEL
+        }
+        baidu {
+            dimension APK_CHANNEL
+        }
+        xiaomi {
+            dimension APK_CHANNEL
+        }
+        tencent {
+            dimension APK_CHANNEL
+        }
+        huawei {
+            dimension APK_CHANNEL
+        }
+        anzhi {
+            dimension APK_CHANNEL
+        }
+        _test {
+            dimension APK_CHANNEL
+        }
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = ["TINY_CHANNEL_VALUE": name]
+    }
+
+    //针对2.3版本添加的配置
+    lintOptions {
+        checkReleaseBuilds false
+        //Or, if you prefer, you can continue to check fr errors in release builds,
+        //but continue the build even when errors are foundsL
+        abortOnError false
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
 }
 
