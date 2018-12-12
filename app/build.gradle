@@ -99,12 +99,48 @@ printGradleInfoInAppModule()
 
 // 配置阶段就会执行
 tasks.all {
-    println "tasks.name --> " + it.getName()
+//    println "tasks.name --> " + it.getName()
 }
 
 // assemble 任务执行完成以后才会执行
-tasks.getByName("assemble"){
+tasks.getByName("assemble") {
     it.doLast {
         println "$project.name: After assemble"
     }
+}
+
+// 定义并配置myTask
+// 在配置阶段就执行
+task myTask {
+    println "config myTask"
+}
+
+myTask.doFirst {
+    println "before execute myTask"
+}
+
+myTask.doLast {
+    println "after execute myTask"
+}
+
+//myTask.leftShift {
+//    println "after execute myTask"
+//}
+
+//myTask << {
+//    println "after execute myTask"
+//}
+
+// 带参数的Task
+project.task('myTask1').doLast {
+    println "after execute myTask1"
+}
+
+project.tasks.create('myTask2').doLast {
+    println "after execute myTask2"
+}
+
+// 定义一个名字为wjzTask的task，属于wangjianzhou分组，并且依赖myTask1和myTask2两个task。
+project.task("wjzTask", group: "wangjianzhou", description: "我自己的Group", dependsOn: ["myTask1", "myTask2"]).doLast {
+    println "after execute wjzTask"
 }
