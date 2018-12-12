@@ -85,17 +85,17 @@ android {
             signingConfig signingConfigs.release
 
             //打包好的文件进行输出，修改文件名称的操作在下面进行。
-//            applicationVariants.all { variant ->
-//                //这个修改输出的APK路径
-//                if (variant.buildType.name != "debug") {//防止AS无法安装debug包(apk)
-//                    variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/apk")
-//                }
-//                variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
-//                    //这个修改输出APK的文件名
-//                    apkData.outputFileName = "dxw_v${variant.productFlavors[0].versionName}_${variant.productFlavors[0].name}" +
-//                            "_${variant.productFlavors[1].name}_${getGitRevision()}.apk"
-//                }
-//            }
+            applicationVariants.all { variant ->
+                //这个修改输出的APK路径
+                if (variant.buildType.name != "debug") {//防止AS无法安装debug包(apk)
+                    variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/apk")
+                }
+                variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
+                    //这个修改输出APK的文件名
+                    apkData.outputFileName = "gradleDemo_v${variant.productFlavors[0].versionName}_${variant.productFlavors[0].name}" +
+                            "_${variant.productFlavors[1].name}_${getGitRevision()}.apk"
+                }
+            }
         }
     }
 
