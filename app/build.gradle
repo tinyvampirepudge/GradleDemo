@@ -3,6 +3,23 @@ apply plugin: 'com.android.application' // APK 编译必须加载这个插件
 def final String APK_TYPE = "type"
 def final String APK_CHANNEL = "channel"
 
+def getGitRevision() {
+    return "git rev-parse --short HEAD".execute().text.trim()
+}
+
+def printReadOnlyProductFlavor(productFlavor) {
+    println "printReadOnlyProductFlavor start"
+
+    println "getApplicationId():" + productFlavor.getApplicationId()
+    println "getDimension():" + productFlavor.getDimension()
+    println "getFlavorDimension():" + productFlavor.getFlavorDimension()
+    println "name:" + productFlavor.name
+    println "getVersionCode():" + productFlavor.getVersionCode()
+    println "getVersionName():" + productFlavor.getVersionName()
+
+    println "printReadOnlyProductFlavor end"
+}
+
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
     defaultConfig {
@@ -13,7 +30,10 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        flavorDimensions APK_TYPE,APK_CHANNEL
+        flavorDimensions APK_TYPE, APK_CHANNEL
+
+        // 默认渠道
+        manifestPlaceholders = [TINY_CHANNEL_VALUE: "tiny"]
     }
 
     // 设置签名信息配置
@@ -121,8 +141,17 @@ android {
         }
     }
 
+    applicationVariants.all { variant ->
+        def result = variant.productFlavors[0].name + "-" + variant.productFlavors[1].name + "-" + variant.buildType.name
+        println "result:" + result
+    }
+
     productFlavors.all { flavor ->
-        flavor.manifestPlaceholders = ["TINY_CHANNEL_VALUE": name]
+        println "productFlavors.all: flavor.name: " + flavor.name
+        println "productFlavors.all: flavor.dimension: " + flavor.dimension
+        if (APK_CHANNEL.equals(flavor.dimension)) {
+            flavor.manifestPlaceholders = [TINY_CHANNEL_VALUE: flavor.name]
+        }
     }
 
     //针对2.3版本添加的配置

@@ -20,6 +20,10 @@
             android:name="TINY_TONGTONG1"
             android:value="wangdandan1"/>
 
+        <meta-data
+            android:name="TINY_CHANNEL"
+            android:value="${TINY_CHANNEL_VALUE}"/>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
