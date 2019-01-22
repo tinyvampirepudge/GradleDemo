@@ -21,5 +21,13 @@ public class MainActivity extends AppCompatActivity {
         String channelName = AppInfoUtils.getAppMetaData(this.getApplicationContext(),"TINY_CHANNEL");
         TextView tvChannel = findViewById(R.id.tv2);
         tvChannel.setText("渠道名称为：" + channelName);
+
+        // commit_id
+        TextView tvCommitId = findViewById(R.id.tv3);
+        tvCommitId.setText("最新的commit_id为：" + getGitRevision());
+    }
+
+    private String getGitRevision(){
+        return BuildConfig.gitCommitId;
     }
 }

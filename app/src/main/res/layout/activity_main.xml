@@ -27,4 +27,14 @@
         android:textSize="@dimen/text_size"
         app:layout_constraintTop_toBottomOf="@id/tv1" />
 
+    <TextView
+        android:id="@+id/tv3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="最新的commit_id为："
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintTop_toBottomOf="@id/tv2" />
+
 </android.support.constraint.ConstraintLayout>

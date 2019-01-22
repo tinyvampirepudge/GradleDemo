@@ -60,6 +60,11 @@ android {
             buildConfigField "String", "defaultNickName", "\"${DEFAULT_NICK_NAME}\""
             buildConfigField "Integer", "defaultNumber", DEFAULT_NUMBER
 
+            // 给gradle.properties中的LATEST_COMMIT_ID赋值
+            GIT_COMMIT_ID = getGitRevision()
+            // Java代码调用
+            buildConfigField "String", "gitCommitId", "\"${GIT_COMMIT_ID}\""
+
             // xml布局文件调用
             resValue "string", "user_name", "${USER_NAME}"
             resValue "dimen", "text_size", "${TEXT_SIZE}"
@@ -70,6 +75,11 @@ android {
             // Java代码调用
             buildConfigField "String", "defaultNickName", "\"${DEFAULT_NICK_NAME}\""
             buildConfigField "Integer", "defaultNumber", DEFAULT_NUMBER
+
+            // 给gradle.properties中的LATEST_COMMIT_ID赋值
+            GIT_COMMIT_ID = getGitRevision()
+            // Java代码调用
+            buildConfigField "String", "gitCommitId", "\"${GIT_COMMIT_ID}\""
 
             // xml布局文件调用
             resValue "string", "user_name", "${USER_NAME}"
